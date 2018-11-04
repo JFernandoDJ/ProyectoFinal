@@ -1,11 +1,14 @@
 package com.example.fernando.proyectofinal;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,6 +35,8 @@ public class Class_list_note extends AppCompatActivity {
 
     static boolean presionado = false;
     EditText edT;
+    static ListView lv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +77,7 @@ public class Class_list_note extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(),"Notas",Toast.LENGTH_SHORT).show();
                 meterBotones(fab2,fab3,fab4,fab);
                 Intent intent = new Intent(view.getContext(),CrearNotaClass.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
@@ -110,22 +115,26 @@ public class Class_list_note extends AppCompatActivity {
         listN.add(new Nota(0,"",new ArrayList<String>(),new ArrayList<String>(), new ArrayList<String>(), new Date(),false,""));
         listN.add(new Nota(0,"",new ArrayList<String>(),new ArrayList<String>(), new ArrayList<String>(), new Date(),true,""));
 */
-        final ListView lv = findViewById(R.id.listViewDatos);
+        lv = findViewById(R.id.listViewDatos);
         AdaptadorListView miAdapter = new AdaptadorListView(getApplicationContext(),list);
         lv.setAdapter(miAdapter);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(Class_list_note.this, i+"", Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        /*lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                return false;
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("Opciones");
+                CharSequence[] opciones = {"Eliminar"};
+                builder.setItems(opciones, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+                return true;
             }
-        });
+        });*/
 
         edT = findViewById(R.id.edTxtBuscar);
         edT.setFocusable(false);
@@ -159,7 +168,16 @@ public class Class_list_note extends AppCompatActivity {
 
     }
 
-    public void onClickFab1(View view) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        DAOnota dn = new DAOnota(getApplicationContext());
+        List<Nota> list = dn.getAll();
+        AdaptadorListView miAdapter = new AdaptadorListView(getApplicationContext(),list);
+        lv.setAdapter(miAdapter);
+    }
+
+        public void onClickFab1(View view) {
         //Toast.makeText(getApplicationContext(),"Notas",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,CrearNotaClass.class);
         startActivity(intent);
@@ -201,4 +219,10 @@ public void sacarBotones(FloatingActionButton fab2, FloatingActionButton fab3, F
         fab4.setEnabled(false);
         fab.setImageDrawable(getResources().getDrawable(R.drawable.agregar));
     }
+
+    public void onBackPressed(){
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
 }

@@ -49,7 +49,8 @@
         android:layout_marginTop="164dp"
         android:layout_marginEnd="23dp"
         android:layout_marginRight="23dp"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="4dp"
+        android:layoutAnimation="@anim/layout_down"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -95,17 +96,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
                 android:layout_gravity="left|bottom"
-                android:src="@drawable/text_not"
-                />
+                android:src="@drawable/text_not" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
                 android:layout_gravity="top|end"
                 android:src="@drawable/micro" />
 
@@ -114,7 +112,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
                 android:layout_gravity="left"
                 android:src="@drawable/cam" />
 
@@ -123,12 +120,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
                 android:layout_gravity="bottom|end"
                 android:src="@drawable/agregar" />
 
         </FrameLayout>
 
     </FrameLayout>
-
 </RelativeLayout>

@@ -1,6 +1,8 @@
 package com.example.fernando.proyectofinal;
 
+        import android.app.AlertDialog;
         import android.content.Context;
+        import android.content.DialogInterface;
         import android.content.Intent;
         import android.os.Build;
         import android.support.annotation.RequiresApi;
@@ -8,6 +10,8 @@ package com.example.fernando.proyectofinal;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.view.animation.Animation;
+        import android.view.animation.AnimationUtils;
         import android.widget.BaseAdapter;
         import android.widget.ImageButton;
         import android.widget.ImageView;
@@ -78,6 +82,23 @@ public class AdaptadorListView extends BaseAdapter {
         imgBtnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
+                mensaje.setMessage("¿Seguro que quieres elimianrlo?")
+                        .setCancelable(true)
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                AlertDialog alert = mensaje.create();
+                alert.show();
                 DAOnota dnota = new DAOnota(view.getContext());
                 dnota.delete(listaDatos.get(j).getId());
                 List<Nota> list = dnota.getAll();
@@ -94,6 +115,14 @@ public class AdaptadorListView extends BaseAdapter {
                 Toast.makeText(view.getContext(), "Editar", Toast.LENGTH_SHORT).show();
             }
         });
+
+        Animation animation = AnimationUtils.loadAnimation(context,
+               R.anim.animar_recordatorio_botones);
+        vista.startAnimation(animation);
+        posicionAnterior = i;
+
         return vista;
     }
+    private int posicionAnterior = -1;
+
 }

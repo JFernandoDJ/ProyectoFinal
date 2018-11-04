@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     public void click(View view){
         Intent intent = new Intent(this, Class_list_note.class);
         startActivity(intent);
+        //this.onBackPressed();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         //Toast.makeText(view.getContext(),"MAL",Toast.LENGTH_LONG).show();
     }

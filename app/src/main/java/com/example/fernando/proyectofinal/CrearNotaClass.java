@@ -163,6 +163,7 @@ public class CrearNotaClass extends AppCompatActivity {
             Log.i("Nota" + i, list.get(i).toString());
         }*/
         resetarValores();
+        this.onBackPressed();
     }
 
     public void resetarValores(){
@@ -300,6 +301,11 @@ public class CrearNotaClass extends AppCompatActivity {
         {
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void onBackPressed(){
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
 }
